@@ -102,7 +102,7 @@ jobs:
         working-directory: frontend
 
       - name: Wait for app
-        run: npx wait-on http://127.0.0.1:3000 --timeout 60000
+        run: sleep 5 && npx wait-on http://localhost:3000 --timeout 60000
 
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.12.0
