@@ -6,7 +6,6 @@ coverage/
 .env
 .env.local
 .dev-pids
-package-lock.json
 *.db
 *.db-journal
 backend/prisma/dev.db
