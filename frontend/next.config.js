@@ -48,7 +48,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/_next/static/(.*)',
+        source: '/_next/static/:path*',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
@@ -61,7 +61,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/((?!_next/static).*)',
+        source: '/:path*',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
