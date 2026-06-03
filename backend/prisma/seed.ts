@@ -1,6 +1,9 @@
+import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+
+const hashPassword = (password: string) => bcrypt.hash(password, 10);
 
 async function main() {
   await prisma.comment.deleteMany();
@@ -12,7 +15,7 @@ async function main() {
   const user1 = await prisma.user.create({
     data: {
       email: "user1@test.local",
-      passwordHash: "Password123!",
+      passwordHash: await hashPassword("Password123!"),
       displayName: "Camille Martin",
       phone: "+33 6 12 34 56 10",
       role: "customer",
@@ -24,7 +27,7 @@ async function main() {
   const user2 = await prisma.user.create({
     data: {
       email: "user2@test.local",
-      passwordHash: "Password123!",
+      passwordHash: await hashPassword("Password123!"),
       displayName: "Nora Bernard",
       phone: "+33 6 12 34 56 20",
       role: "customer",
@@ -36,7 +39,7 @@ async function main() {
   const admin = await prisma.user.create({
     data: {
       email: "admin@test.local",
-      passwordHash: "Admin123!",
+      passwordHash: await hashPassword("Admin123!"),
       displayName: "Alex Admin",
       phone: "+33 1 44 55 66 77",
       role: "admin",

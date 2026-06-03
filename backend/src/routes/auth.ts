@@ -1,4 +1,5 @@
 import { Router } from "express";
+import bcrypt from "bcryptjs";
 import { prisma } from "../lib/prisma.js";
 import { signToken } from "../lib/auth.js";
 import { requireAuth } from "../middleware/auth.js";
@@ -14,7 +15,8 @@ authRouter.post("/login", async (req, res) => {
     return;
   }
 
-  if (user.passwordHash !== password) {
+  const passwordMatches = await bcrypt.compare(password, user.passwordHash);
+  if (!passwordMatches) {
     res.status(401).json({ message: "Incorrect password" });
     return;
   }
@@ -39,9 +41,16 @@ authRouter.get("/me", requireAuth, async (req, res) => {
 });
 
 authRouter.put("/me", requireAuth, async (req, res) => {
+  const { displayName, email, phone } = req.body;
+  const data: { displayName?: string; email?: string; phone?: string } = {};
+
+  if (displayName !== undefined) data.displayName = String(displayName);
+  if (email !== undefined) data.email = String(email);
+  if (phone !== undefined) data.phone = String(phone);
+
   const user = await prisma.user.update({
     where: { id: req.user!.id },
-    data: req.body
+    data
   });
   res.json(user);
 });

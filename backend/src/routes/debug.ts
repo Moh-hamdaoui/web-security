@@ -9,10 +9,7 @@ debugRouter.get("/error", (_req, res) => {
     const err = error as Error;
     res.status(500).json({
       name: err.name,
-      message: err.message,
-      stack: err.stack,
-      cwd: process.cwd(),
-      node: process.version
+      message: "Internal server error"
     });
   }
 });
