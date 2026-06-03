@@ -53,3 +53,14 @@ jobs:
 
       - name: Run npm audit
         run: npm audit --audit-level=high
+  
+  sast-semgrep:
+    name: SAST - Semgrep
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: SAST - Semgrep
+        uses: semgrep/semgrep-action@v1
