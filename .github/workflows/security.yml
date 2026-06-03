@@ -53,7 +53,7 @@ jobs:
 
       - name: Run npm audit
         run: npm audit --audit-level=high
-  
+
   sast-semgrep:
     name: SAST - Semgrep
     runs-on: ubuntu-latest
@@ -64,6 +64,8 @@ jobs:
 
       - name: SAST - Semgrep
         uses: semgrep/semgrep-action@v1
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
   secret-scan-gitleaks:
     name: Secret Scan - Gitleaks
@@ -75,6 +77,8 @@ jobs:
 
       - name: Secret Scan - Gitleaks
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   dast-zap:
     name: DAST - OWASP ZAP
@@ -118,3 +122,5 @@ jobs:
         uses: zaproxy/action-baseline@v0.12.0
         with:
           target: 'http://localhost:3000'
+          fail_action: true
+          cmd_options: '-l HIGH'
