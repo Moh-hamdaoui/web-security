@@ -77,8 +77,8 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
 
   dast-zap:
-  name: DAST - OWASP ZAP
-  runs-on: ubuntu-latest
+    name: DAST - OWASP ZAP
+    runs-on: ubuntu-latest
 
   steps:
     - uses: actions/checkout@v4
