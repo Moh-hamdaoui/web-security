@@ -117,4 +117,8 @@ jobs:
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
-          target: 'http://localhost:3000'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allow_issue_writing: false
+          artifact_name: 'zap-report'
+          target: 'http://127.0.0.1:3000/'
+          cmd_options: '-a'
